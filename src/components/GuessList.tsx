@@ -11,28 +11,24 @@ export const GuessList = ({ guesses, maxAttempts = 6 }: GuessListProps) => {
   const emptyRows = Array(remainingGuesses).fill(null);
 
   return (
-    <div className="flex flex-col items-center gap-1 my-4">
+    <div className="my-4 flex flex-col items-center gap-1">
       {guesses.map((guess, index) => (
         <div key={index} className="flex gap-1">
           {guess.guess.split('').map((digit, digitIndex) => (
-            <div
-              key={digitIndex}
-              className={`digit-tile ${guess.feedback[digitIndex]}`}
-            >
+            <div key={digitIndex} className={`digit-tile ${guess.feedback[digitIndex]}`}>
               {digit}
             </div>
           ))}
         </div>
       ))}
-      
+
       {emptyRows.map((_, index) => (
         <div key={`empty-${index}`} className="flex gap-1">
-          {Array(4).fill(null).map((_, digitIndex) => (
-            <div
-              key={digitIndex}
-              className="digit-tile empty"
-            />
-          ))}
+          {Array(4)
+            .fill(null)
+            .map((_, digitIndex) => (
+              <div key={digitIndex} className="digit-tile empty" />
+            ))}
         </div>
       ))}
     </div>

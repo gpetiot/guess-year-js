@@ -36,14 +36,14 @@ export const Game = () => {
   const checkGuess = (guessStr: string): GuessResult => {
     const answer = gameState.currentPuzzle.answer.toString();
     const feedback: ('correct' | 'partial' | 'incorrect')[] = new Array(4).fill('incorrect');
-    
+
     // First pass: mark correct digits
     for (let i = 0; i < 4; i++) {
       if (guessStr[i] === answer[i]) {
         feedback[i] = 'correct';
       }
     }
-    
+
     // Second pass: mark partial matches
     const remainingAnswer = answer.split('');
     const remainingGuess = guessStr.split('');
@@ -53,7 +53,7 @@ export const Game = () => {
         remainingGuess[i] = '';
       }
     }
-    
+
     for (let i = 0; i < 4; i++) {
       if (feedback[i] !== 'correct' && remainingGuess[i] !== '') {
         const matchIndex = remainingAnswer.indexOf(remainingGuess[i]);
@@ -72,22 +72,22 @@ export const Game = () => {
 
     const guessResult = checkGuess(guess);
     const newGuesses = [...gameState.guesses, guessResult];
-    
+
     let newGameStatus: GameStatus = gameState.gameStatus;
     let newScore = gameState.score;
     let newStreak = gameState.streak;
 
-    if (guessResult.feedback.every(f => f === 'correct')) {
+    if (guessResult.feedback.every((f) => f === 'correct')) {
       newGameStatus = 'won';
       const remainingAttempts = MAX_ATTEMPTS - newGuesses.length;
       newScore = remainingAttempts * 100;
-      
+
       // Add speed bonus
       const timeTaken = (Date.now() - gameState.timeStarted) / 1000 / 60; // minutes
       if (timeTaken <= 5) {
         newScore += 50;
       }
-      
+
       // Add streak bonus
       newStreak = gameState.streak + 1;
       newScore += newStreak * 25;
@@ -111,7 +111,7 @@ export const Game = () => {
       });
     }
 
-    setGameState(prev => ({
+    setGameState((prev) => ({
       ...prev,
       guesses: newGuesses,
       gameStatus: newGameStatus,
@@ -126,10 +126,7 @@ export const Game = () => {
       <Text>Attempts remaining: {MAX_ATTEMPTS - gameState.guesses.length}</Text>
       <ClueList clues={gameState.currentPuzzle.clues} />
       <GuessList guesses={gameState.guesses} />
-      <GuessInput
-        onSubmit={handleGuess}
-        disabled={gameState.gameStatus !== 'playing'}
-      />
+      <GuessInput onSubmit={handleGuess} disabled={gameState.gameStatus !== 'playing'} />
       {gameState.gameStatus !== 'playing' && (
         <Text fontSize="lg" fontWeight="bold">
           {gameState.gameStatus === 'won'
@@ -139,4 +136,4 @@ export const Game = () => {
       )}
     </Stack>
   );
-}; 
+};

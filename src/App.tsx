@@ -8,32 +8,29 @@ const GameContent = () => {
   const { currentPuzzle, guesses, gameStatus, handleGuessSubmit, score, handleShare } = useGame();
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-white dark:bg-gray-900">
+    <div className="flex min-h-screen flex-col items-center bg-white dark:bg-gray-900">
       <header className="w-full border-b dark:border-gray-800">
         <div className="container mx-auto px-4 py-3">
-          <h1 className="text-3xl font-bold text-center dark:text-white">Chronos Code</h1>
+          <h1 className="text-center text-3xl font-bold dark:text-white">Chronos Code</h1>
         </div>
       </header>
 
-      <main className="flex-1 w-full container mx-auto px-4 py-8 max-w-2xl">
+      <main className="container mx-auto w-full max-w-2xl flex-1 px-4 py-8">
         {currentPuzzle && (
           <div className="space-y-6">
-            <div className="text-center space-y-2">
+            <div className="space-y-2 text-center">
               <p className="text-lg dark:text-white">Decode the year from the clues below:</p>
               <p className="text-sm text-gray-600 dark:text-gray-400">{currentPuzzle.date}</p>
             </div>
 
             <ClueList clues={currentPuzzle.clues} />
-            
+
             <GuessList guesses={guesses} maxAttempts={6} />
-            
-            <GuessInput 
-              onSubmit={handleGuessSubmit} 
-              disabled={gameStatus !== 'playing'} 
-            />
+
+            <GuessInput onSubmit={handleGuessSubmit} disabled={gameStatus !== 'playing'} />
 
             {gameStatus !== 'playing' && (
-              <div className="space-y-4 text-center p-6 bg-gray-100 dark:bg-gray-800 rounded-lg">
+              <div className="space-y-4 rounded-lg bg-gray-100 p-6 text-center dark:bg-gray-800">
                 <p className="text-xl font-bold dark:text-white">
                   {gameStatus === 'won' ? '🎉 Congratulations!' : '😔 Better luck next time!'}
                 </p>
@@ -41,7 +38,7 @@ const GameContent = () => {
                 <p className="text-lg font-semibold dark:text-white">Score: {score}</p>
                 <button
                   onClick={handleShare}
-                  className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
+                  className="rounded-md bg-green-500 px-6 py-2 text-white transition-colors hover:bg-green-600"
                 >
                   Share Result
                 </button>

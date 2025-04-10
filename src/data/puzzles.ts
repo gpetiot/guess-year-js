@@ -15,9 +15,9 @@ export const puzzles: Puzzle[] = [
     date: '2024-04-12',
     year: '1453',
     clues: [
-      'A city\'s walls fell to cannon\'s roar.',
+      "A city's walls fell to cannon's roar.",
       'The East and West drew a sharper line.',
-      'An empire\'s end birthed another\'s dawn.',
+      "An empire's end birthed another's dawn.",
       'Books began their silent spread.',
     ],
   },
@@ -28,7 +28,7 @@ export const puzzles: Puzzle[] = [
       'A new world was claimed across the sea.',
       'Three ships sailed into history.',
       'Old maps were redrawn with new shores.',
-      'A navigator\'s dream changed everything.',
+      "A navigator's dream changed everything.",
     ],
   },
 ];
@@ -88,5 +88,5 @@ export const timeCards: TimeCard[] = [
 
 export const getToday = (): Puzzle => {
   const today = new Date().toISOString().split('T')[0];
-  return puzzles.find(puzzle => puzzle.date === today) || puzzles[0];
-}; 
+  return puzzles.find((puzzle) => puzzle.date === today) || puzzles[0];
+};

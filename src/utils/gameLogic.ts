@@ -41,15 +41,15 @@ export const calculateScore = (
   streak: number
 ): number => {
   let score = remainingAttempts * BASE_POINTS_PER_ATTEMPT;
-  
+
   // Add speed bonus if solved within 5 minutes
   if (elapsedTime <= SPEED_BONUS_TIME) {
     score += SPEED_BONUS_POINTS;
   }
-  
+
   // Add streak bonus
   score += streak * STREAK_BONUS_POINTS;
-  
+
   return score;
 };
 
@@ -61,9 +61,7 @@ export const generateShareText = (guesses: GuessResult[], won: boolean): string 
   };
 
   const header = `Chronos Code ${guesses.length}/${MAX_ATTEMPTS}${won ? ' ✨' : ' ❌'}\n\n`;
-  const grid = guesses
-    .map(guess => guess.feedback.map(f => emojiMap[f]).join(''))
-    .join('\n');
+  const grid = guesses.map((guess) => guess.feedback.map((f) => emojiMap[f]).join('')).join('\n');
 
   return header + grid;
 };
@@ -97,7 +95,7 @@ export const checkTimeCardUnlocks = (
   futuristicSolves: number
 ): string[] => {
   return cards
-    .filter(card => {
+    .filter((card) => {
       if (card.unlocked) return false;
 
       switch (card.requirement.type) {
@@ -115,5 +113,5 @@ export const checkTimeCardUnlocks = (
           return false;
       }
     })
-    .map(card => card.id);
-}; 
+    .map((card) => card.id);
+};

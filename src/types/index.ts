@@ -46,4 +46,4 @@ export interface StoredGameState {
   lastPlayedDate: string;
   unlockedCards: string[];
   solvedToday: boolean;
-} 
+}

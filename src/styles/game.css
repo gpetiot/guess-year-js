@@ -8,7 +8,8 @@
 }
 
 @keyframes shake {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
   25% {
@@ -20,23 +21,23 @@
 }
 
 .digit-tile {
-  @apply w-16 h-16 flex items-center justify-center text-2xl font-bold border-2 m-1;
+  @apply m-1 flex h-16 w-16 items-center justify-center border-2 text-2xl font-bold;
   perspective: 1000px;
   transform-style: preserve-3d;
 }
 
 .digit-tile.correct {
-  @apply bg-green-500 text-white border-green-500;
+  @apply border-green-500 bg-green-500 text-white;
   animation: flip 0.5s ease-in-out;
 }
 
 .digit-tile.partial {
-  @apply bg-yellow-500 text-white border-yellow-500;
+  @apply border-yellow-500 bg-yellow-500 text-white;
   animation: flip 0.5s ease-in-out;
 }
 
 .digit-tile.incorrect {
-  @apply bg-gray-500 text-white border-gray-500;
+  @apply border-gray-500 bg-gray-500 text-white;
   animation: flip 0.5s ease-in-out;
 }
 
@@ -53,11 +54,11 @@
 }
 
 .keyboard {
-  @apply grid grid-cols-3 gap-2 w-full max-w-sm mx-auto mt-4;
+  @apply mx-auto mt-4 grid w-full max-w-sm grid-cols-3 gap-2;
 }
 
 .key {
-  @apply px-4 py-4 text-sm font-semibold rounded-md transition-colors;
+  @apply rounded-md px-4 py-4 text-sm font-semibold transition-colors;
   @apply bg-gray-200 hover:bg-gray-300 active:bg-gray-400;
-  @apply disabled:opacity-50 disabled:cursor-not-allowed;
-} 
+  @apply disabled:cursor-not-allowed disabled:opacity-50;
+}

@@ -12,7 +12,7 @@ export const GuessInput = ({ onSubmit, disabled }: GuessInputProps) => {
 
   const handleKeyClick = (value: string) => {
     if (disabled) return;
-    
+
     if (value === 'Enter') {
       handleSubmit();
     } else if (value === 'Backspace') {
@@ -34,27 +34,21 @@ export const GuessInput = ({ onSubmit, disabled }: GuessInputProps) => {
   };
 
   const renderKey = (value: string, label?: string) => (
-    <button
-      key={value}
-      onClick={() => handleKeyClick(value)}
-      disabled={disabled}
-      className="key"
-    >
+    <button key={value} onClick={() => handleKeyClick(value)} disabled={disabled} className="key">
       {label || value}
     </button>
   );
 
   return (
-    <div className="w-full max-w-sm mx-auto">
-      <div className={`flex justify-center mb-4 ${shaking ? 'shake' : ''}`}>
-        {Array(4).fill(null).map((_, index) => (
-          <div
-            key={index}
-            className={`digit-tile ${index < guess.length ? 'current' : 'empty'}`}
-          >
-            {guess[index] || ''}
-          </div>
-        ))}
+    <div className="mx-auto w-full max-w-sm">
+      <div className={`mb-4 flex justify-center ${shaking ? 'shake' : ''}`}>
+        {Array(4)
+          .fill(null)
+          .map((_, index) => (
+            <div key={index} className={`digit-tile ${index < guess.length ? 'current' : 'empty'}`}>
+              {guess[index] || ''}
+            </div>
+          ))}
       </div>
 
       <div className="keyboard">

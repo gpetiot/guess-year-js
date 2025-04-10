@@ -50,7 +50,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setGameState(prev => ({
+      setGameState((prev) => ({
         ...prev,
         elapsedTime: Date.now() - prev.timeStarted,
       }));
@@ -70,7 +70,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
     let newScore = gameState.score;
     let newStreak = gameState.streak;
 
-    if (feedback.every(f => f === 'correct')) {
+    if (feedback.every((f) => f === 'correct')) {
       newGameStatus = 'won';
       newScore = calculateScore(
         MAX_ATTEMPTS - newGuesses.length,
@@ -97,7 +97,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
       });
     }
 
-    setGameState(prev => ({
+    setGameState((prev) => ({
       ...prev,
       guesses: newGuesses,
       gameStatus: newGameStatus,
@@ -122,4 +122,4 @@ export const GameProvider = ({ children }: GameProviderProps) => {
   };
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
-}; 
+};
