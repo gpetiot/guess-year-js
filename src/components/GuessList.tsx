@@ -1,38 +1,40 @@
-import { Stack, Box } from '@chakra-ui/react';
 import { GuessResult } from '../types';
+import '../styles/game.css';
 
 interface GuessListProps {
   guesses: GuessResult[];
+  maxAttempts?: number;
 }
 
-export const GuessList = ({ guesses }: GuessListProps) => {
-  const getColorClass = (feedback: 'correct' | 'partial' | 'incorrect') => {
-    switch (feedback) {
-      case 'correct':
-        return 'bg-green-500';
-      case 'partial':
-        return 'bg-yellow-500';
-      case 'incorrect':
-        return 'bg-gray-500';
-    }
-  };
+export const GuessList = ({ guesses, maxAttempts = 6 }: GuessListProps) => {
+  const remainingGuesses = maxAttempts - guesses.length;
+  const emptyRows = Array(remainingGuesses).fill(null);
 
   return (
-    <div className="w-full max-w-2xl space-y-2 p-4">
+    <div className="flex flex-col items-center gap-1 my-4">
       {guesses.map((guess, index) => (
-        <div key={index} className="flex justify-center gap-2">
+        <div key={index} className="flex gap-1">
           {guess.guess.split('').map((digit, digitIndex) => (
             <div
               key={digitIndex}
-              className={`w-12 h-12 flex items-center justify-center text-xl font-bold text-white rounded-md ${getColorClass(
-                guess.feedback[digitIndex]
-              )}`}
+              className={`digit-tile ${guess.feedback[digitIndex]}`}
             >
               {digit}
             </div>
           ))}
         </div>
       ))}
+      
+      {emptyRows.map((_, index) => (
+        <div key={`empty-${index}`} className="flex gap-1">
+          {Array(4).fill(null).map((_, digitIndex) => (
+            <div
+              key={digitIndex}
+              className="digit-tile empty"
+            />
+          ))}
+        </div>
+      ))}
     </div>
   );
-}; 
+};

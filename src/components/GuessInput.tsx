@@ -1,43 +1,68 @@
 import { useState } from 'react';
+import '../styles/game.css';
 
 interface GuessInputProps {
   onSubmit: (guess: string) => void;
   disabled?: boolean;
 }
 
-export const GuessInput = ({ onSubmit, disabled = false }: GuessInputProps) => {
+export const GuessInput = ({ onSubmit, disabled }: GuessInputProps) => {
   const [guess, setGuess] = useState('');
+  const [shaking, setShaking] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (guess.length === 4 && /^\d+$/.test(guess)) {
-      onSubmit(guess);
-      setGuess('');
+  const handleKeyClick = (value: string) => {
+    if (disabled) return;
+    
+    if (value === 'Enter') {
+      handleSubmit();
+    } else if (value === 'Backspace') {
+      setGuess((prev) => prev.slice(0, -1));
+    } else if (guess.length < 4) {
+      setGuess((prev) => prev + value);
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl p-4">
-      <div className="flex gap-4">
-        <input
-          type="text"
-          inputMode="numeric"
-          pattern="\d*"
-          maxLength={4}
-          placeholder="Enter year (e.g., 1969)"
-          value={guess}
-          onChange={(e) => setGuess(e.target.value)}
-          disabled={disabled}
-          className="flex-1 p-3 text-lg border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-500"
-        />
-        <button
-          type="submit"
-          disabled={guess.length !== 4 || !/^\d+$/.test(guess) || disabled}
-          className="px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-        >
-          Guess
-        </button>
-      </div>
-    </form>
+  const handleSubmit = () => {
+    if (guess.length !== 4 || !/^\d{4}$/.test(guess)) {
+      setShaking(true);
+      setTimeout(() => setShaking(false), 500);
+      return;
+    }
+
+    onSubmit(guess);
+    setGuess('');
+  };
+
+  const renderKey = (value: string, label?: string) => (
+    <button
+      key={value}
+      onClick={() => handleKeyClick(value)}
+      disabled={disabled}
+      className="key"
+    >
+      {label || value}
+    </button>
   );
-}; 
+
+  return (
+    <div className="w-full max-w-sm mx-auto">
+      <div className={`flex justify-center mb-4 ${shaking ? 'shake' : ''}`}>
+        {Array(4).fill(null).map((_, index) => (
+          <div
+            key={index}
+            className={`digit-tile ${index < guess.length ? 'current' : 'empty'}`}
+          >
+            {guess[index] || ''}
+          </div>
+        ))}
+      </div>
+
+      <div className="keyboard">
+        {[...Array(9)].map((_, i) => renderKey(String(i + 1)))}
+        {renderKey('Backspace', '⌫')}
+        {renderKey('0')}
+        {renderKey('Enter', '↵')}
+      </div>
+    </div>
+  );
+};
