@@ -6,40 +6,33 @@ interface GuessListProps {
 }
 
 export const GuessList = ({ guesses }: GuessListProps) => {
-  const getColorScheme = (feedback: 'correct' | 'partial' | 'incorrect') => {
+  const getColorClass = (feedback: 'correct' | 'partial' | 'incorrect') => {
     switch (feedback) {
       case 'correct':
-        return 'correct.500';
+        return 'bg-green-500';
       case 'partial':
-        return 'partial.500';
+        return 'bg-yellow-500';
       case 'incorrect':
-        return 'incorrect.500';
+        return 'bg-gray-500';
     }
   };
 
   return (
-    <Stack gap={2} w="100%" maxW="600px" p={4}>
+    <div className="w-full max-w-2xl space-y-2 p-4">
       {guesses.map((guess, index) => (
-        <Stack key={index} direction="row" gap={2} w="100%" justify="center">
+        <div key={index} className="flex justify-center gap-2">
           {guess.guess.split('').map((digit, digitIndex) => (
-            <Box
+            <div
               key={digitIndex}
-              w="50px"
-              h="50px"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              bg={getColorScheme(guess.feedback[digitIndex])}
-              color="white"
-              fontSize="xl"
-              fontWeight="bold"
-              borderRadius="md"
+              className={`w-12 h-12 flex items-center justify-center text-xl font-bold text-white rounded-md ${getColorClass(
+                guess.feedback[digitIndex]
+              )}`}
             >
               {digit}
-            </Box>
+            </div>
           ))}
-        </Stack>
+        </div>
       ))}
-    </Stack>
+    </div>
   );
 }; 
