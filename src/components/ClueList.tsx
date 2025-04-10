@@ -6,19 +6,15 @@ interface ClueListProps {
 
 export const ClueList = ({ clues }: ClueListProps) => {
   return (
-    <Stack gap={3} align="stretch" w="100%" maxW="600px" p={4}>
+    <div className="w-full max-w-2xl space-y-3 p-4">
       {clues.map((clue, index) => (
-        <Text
+        <div
           key={index}
-          fontSize="lg"
-          p={3}
-          bg="gray.100"
-          borderRadius="md"
-          _dark={{ bg: 'gray.700' }}
+          className="bg-gray-100 dark:bg-gray-800 p-3 rounded-md text-lg"
         >
           {clue}
-        </Text>
+        </div>
       ))}
-    </Stack>
+    </div>
   );
 }; 
