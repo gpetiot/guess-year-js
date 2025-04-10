@@ -20,7 +20,6 @@ const GameContent = () => {
           <div className="space-y-6">
             <div className="space-y-2 text-center">
               <p className="text-lg dark:text-white">Decode the year from the clues below:</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{currentPuzzle.date}</p>
             </div>
 
             <ClueList clues={currentPuzzle.clues} />

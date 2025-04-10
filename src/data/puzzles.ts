@@ -2,7 +2,6 @@ import { Puzzle, TimeCard } from '../types';
 
 export const puzzles: Puzzle[] = [
   {
-    date: '2024-04-11',
     year: '1969',
     clues: [
       'A giant leap was taken on a dusty surface.',
@@ -12,7 +11,6 @@ export const puzzles: Puzzle[] = [
     ],
   },
   {
-    date: '2024-04-12',
     year: '1453',
     clues: [
       "A city's walls fell to cannon's roar.",
@@ -22,7 +20,6 @@ export const puzzles: Puzzle[] = [
     ],
   },
   {
-    date: '2024-04-13',
     year: '1492',
     clues: [
       'A new world was claimed across the sea.',
@@ -87,6 +84,6 @@ export const timeCards: TimeCard[] = [
 ];
 
 export const getToday = (): Puzzle => {
-  const today = new Date().toISOString().split('T')[0];
-  return puzzles.find((puzzle) => puzzle.date === today) || puzzles[0];
+  const randomIndex = Math.floor(Math.random() * puzzles.length);
+  return puzzles[randomIndex];
 };

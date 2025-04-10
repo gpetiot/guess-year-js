@@ -1,5 +1,5 @@
 export interface Puzzle {
-  date: string;
+  date?: string;
   year: string;
   clues: string[];
 }
