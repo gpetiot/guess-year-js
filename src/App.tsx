@@ -13,19 +13,19 @@ const GameContent = () => {
     <div className="relative min-h-screen bg-white dark:bg-gray-900">
       {/* Side Panel */}
       <div
-        className={`fixed left-0 top-0 z-10 h-full transform bg-gray-100 shadow-lg transition-all duration-300 ease-in-out dark:bg-gray-800 ${
+        className={`fixed left-0 top-0 z-10 h-full transform bg-blue-600 shadow-lg transition-all duration-300 ease-in-out dark:bg-blue-700 ${
           isCluesPanelOpen ? 'w-[30%] translate-x-0' : 'w-0 -translate-x-full'
         }`}
       >
         <div className="h-full overflow-hidden">
           <div className="flex h-full flex-col p-6">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-white">
                 Historical Clues
               </h2>
               <button
                 onClick={() => setIsCluesPanelOpen(false)}
-                className="rounded p-2 text-gray-500 hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
+                className="rounded p-2 text-white/80 hover:bg-blue-500 dark:hover:bg-blue-600"
                 aria-label="Close panel"
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,7 +38,9 @@ const GameContent = () => {
                 </svg>
               </button>
             </div>
-            {currentPuzzle && <ClueList clues={currentPuzzle.clues} />}
+            <div className="text-white">
+              {currentPuzzle && <ClueList clues={currentPuzzle.clues} />}
+            </div>
           </div>
         </div>
       </div>
@@ -46,7 +48,7 @@ const GameContent = () => {
       {/* Toggle Button (Outside Panel) */}
       <button
         onClick={() => setIsCluesPanelOpen(true)}
-        className={`fixed left-0 top-1/2 z-20 -translate-y-1/2 rounded-r bg-gray-100 p-2 text-gray-500 shadow-md hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 ${
+        className={`fixed left-0 top-1/2 z-20 -translate-y-1/2 rounded-r bg-blue-600 p-2 text-white/80 shadow-md hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-600 ${
           isCluesPanelOpen ? 'hidden' : 'block'
         }`}
         aria-label="Open panel"
