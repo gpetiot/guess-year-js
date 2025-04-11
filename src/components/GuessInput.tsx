@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 import '../styles/game.css';
 
 interface GuessInputProps {
@@ -6,57 +6,70 @@ interface GuessInputProps {
   disabled?: boolean;
 }
 
-export const GuessInput = ({ onSubmit, disabled }: GuessInputProps) => {
-  const [guess, setGuess] = useState('');
-  const [shaking, setShaking] = useState(false);
+export interface GuessInputHandle {
+  handleKeyClick: (value: string) => void;
+}
 
-  const handleKeyClick = (value: string) => {
-    if (disabled) return;
+export const GuessInput = forwardRef<GuessInputHandle, GuessInputProps>(
+  ({ onSubmit, disabled }, ref) => {
+    const [guess, setGuess] = useState('');
+    const [shaking, setShaking] = useState(false);
 
-    if (value === 'Enter') {
-      handleSubmit();
-    } else if (value === 'Backspace') {
-      setGuess((prev) => prev.slice(0, -1));
-    } else if (guess.length < 4) {
-      setGuess((prev) => prev + value);
-    }
-  };
+    const handleKeyClick = (value: string) => {
+      if (disabled) return;
 
-  const handleSubmit = () => {
-    if (guess.length !== 4 || !/^\d{4}$/.test(guess)) {
-      setShaking(true);
-      setTimeout(() => setShaking(false), 500);
-      return;
-    }
+      if (value === 'Enter') {
+        handleSubmit();
+      } else if (value === 'Backspace') {
+        setGuess((prev) => prev.slice(0, -1));
+      } else if (guess.length < 4) {
+        setGuess((prev) => prev + value);
+      }
+    };
 
-    onSubmit(guess);
-    setGuess('');
-  };
+    useImperativeHandle(ref, () => ({
+      handleKeyClick,
+    }));
 
-  const renderKey = (value: string, label?: string) => (
-    <button key={value} onClick={() => handleKeyClick(value)} disabled={disabled} className="key">
-      {label || value}
-    </button>
-  );
+    const handleSubmit = () => {
+      if (guess.length !== 4 || !/^\d{4}$/.test(guess)) {
+        setShaking(true);
+        setTimeout(() => setShaking(false), 500);
+        return;
+      }
 
-  return (
-    <div className="mx-auto w-full max-w-sm">
-      <div className={`mb-4 flex justify-center ${shaking ? 'shake' : ''}`}>
-        {Array(4)
-          .fill(null)
-          .map((_, index) => (
-            <div key={index} className={`digit-tile ${index < guess.length ? 'current' : 'empty'}`}>
-              {guess[index] || ''}
-            </div>
-          ))}
+      onSubmit(guess);
+      setGuess('');
+    };
+
+    const renderKey = (value: string, label?: string) => (
+      <button key={value} onClick={() => handleKeyClick(value)} disabled={disabled} className="key">
+        {label || value}
+      </button>
+    );
+
+    return (
+      <div className="mx-auto w-full max-w-sm">
+        <div className={`mb-4 flex justify-center ${shaking ? 'shake' : ''}`}>
+          {Array(4)
+            .fill(null)
+            .map((_, index) => (
+              <div
+                key={index}
+                className={`digit-tile ${index < guess.length ? 'current' : 'empty'}`}
+              >
+                {guess[index] || ''}
+              </div>
+            ))}
+        </div>
+
+        <div className="keyboard">
+          {[...Array(9)].map((_, i) => renderKey(String(i + 1)))}
+          {renderKey('Backspace', '⌫')}
+          {renderKey('0')}
+          {renderKey('Enter', '↵')}
+        </div>
       </div>
-
-      <div className="keyboard">
-        {[...Array(9)].map((_, i) => renderKey(String(i + 1)))}
-        {renderKey('Backspace', '⌫')}
-        {renderKey('0')}
-        {renderKey('Enter', '↵')}
-      </div>
-    </div>
-  );
-};
+    );
+  }
+);

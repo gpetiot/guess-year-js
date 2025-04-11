@@ -1,13 +1,40 @@
 import { GameProvider, useGame } from './context/GameContext';
 import { ClueList } from './components/ClueList';
-import { GuessInput } from './components/GuessInput';
+import { GuessInput, GuessInputHandle } from './components/GuessInput';
 import { GuessList } from './components/GuessList';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './styles/game.css';
 
 const GameContent = () => {
   const { currentPuzzle, guesses, gameStatus, handleGuessSubmit, score, handleShare } = useGame();
   const [isCluesPanelOpen, setIsCluesPanelOpen] = useState(true);
+  const guessInputRef = useRef<GuessInputHandle>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (gameStatus !== 'playing') return;
+
+      // Prevent handling if user is typing in an input field
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      const key = event.key;
+      if (
+        (key >= '0' && key <= '9') ||
+        key === 'Backspace' ||
+        key === 'Enter' ||
+        key === 'Delete'
+      ) {
+        event.preventDefault();
+        const value = key === 'Delete' ? 'Backspace' : key;
+        guessInputRef.current?.handleKeyClick(value);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [gameStatus]);
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-gray-900">
@@ -71,7 +98,11 @@ const GameContent = () => {
             <div className="flex flex-col items-center gap-8">
               <GuessList guesses={guesses} maxAttempts={6} />
 
-              <GuessInput onSubmit={handleGuessSubmit} disabled={gameStatus !== 'playing'} />
+              <GuessInput
+                ref={guessInputRef}
+                onSubmit={handleGuessSubmit}
+                disabled={gameStatus !== 'playing'}
+              />
 
               {gameStatus !== 'playing' && (
                 <div className="w-full space-y-4 rounded-lg bg-gray-100 p-6 text-center dark:bg-gray-800">
