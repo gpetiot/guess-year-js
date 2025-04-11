@@ -109,9 +109,17 @@ export const GameProvider = ({ children }: GameProviderProps) => {
   const handleShare = async () => {
     const shareText = generateShareText(gameState.guesses, gameState.gameStatus === 'won');
     try {
-      await navigator.clipboard.writeText(shareText);
+      if (navigator.share) {
+        await navigator.share({
+          title: 'Chronos Code Result',
+          text: shareText,
+        });
+      } else {
+        await navigator.clipboard.writeText(shareText);
+        alert('Result copied to clipboard!');
+      }
     } catch (error) {
-      console.error('Failed to copy to clipboard:', error);
+      console.error('Failed to share:', error);
     }
   };
 
