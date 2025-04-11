@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-share": "^5.2.2"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",

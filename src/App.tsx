@@ -2,6 +2,8 @@ import { GameProvider, useGame } from './context/GameContext';
 import { ClueList } from './components/ClueList';
 import { GuessInput, GuessInputHandle } from './components/GuessInput';
 import { GuessList } from './components/GuessList';
+import { ShareButtons } from './components/ShareButtons';
+import { generateShareText } from './utils/gameLogic';
 import { useState, useEffect, useRef } from 'react';
 import './styles/game.css';
 
@@ -113,12 +115,10 @@ const GameContent = () => {
                   </p>
                   <p className="dark:text-white">The year was: {currentPuzzle.year}</p>
                   <p className="text-lg font-semibold dark:text-white">Score: {score}</p>
-                  <button
-                    onClick={handleShare}
-                    className="rounded-md bg-green-500 px-6 py-2 text-white transition-colors hover:bg-green-600"
-                  >
-                    Share Result
-                  </button>
+                  <div className="space-y-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Share your result:</p>
+                    <ShareButtons shareText={generateShareText(guesses, gameStatus === 'won')} />
+                  </div>
                 </div>
               )}
             </div>
