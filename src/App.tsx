@@ -67,9 +67,12 @@ const GameContent = () => {
       {/* Main Content */}
       <div className="flex min-h-screen flex-col items-center">
         <header className="w-full border-b border-bg-tertiary bg-bg">
-          <div className="container mx-auto flex items-center px-4 py-4">
-            <h1 className="flex-1 text-center text-4xl font-bold tracking-tight">
-              <span className="text-primary">Dat</span> <span className="text-text">Year</span>
+          <div className="container mx-auto flex items-center justify-center px-4 py-6">
+            <h1 className="flex items-baseline gap-3 text-5xl font-black tracking-tight sm:text-6xl">
+              <span className="relative">
+                <span className="text-primary">DAT</span>
+              </span>
+              <span className="text-text">YEAR</span>
             </h1>
           </div>
         </header>
