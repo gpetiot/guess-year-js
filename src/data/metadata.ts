@@ -94,7 +94,7 @@ export const metadata = {
     },
     {
       name: 'theme-color',
-      content: '#7c5cff',
+      content: '#8B4513',
     },
   ],
   alternates: {

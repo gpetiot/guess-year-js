@@ -4,8 +4,8 @@
   "description": "A daily historical date guessing game that challenges your knowledge of world events",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#7c5cff",
+  "background_color": "#F5F2E8",
+  "theme_color": "#8B4513",
   "orientation": "portrait-primary",
   "icons": [
     {

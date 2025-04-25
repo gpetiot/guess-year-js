@@ -4,34 +4,34 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Main background colors
+        // Main background colors inspired by ancient Greek pottery and marble
         bg: {
-          DEFAULT: '#f8fafc', // Light gray background
-          secondary: '#f1f5f9', // Slightly darker background for panels
-          tertiary: '#e2e8f0', // Even darker for borders and dividers
+          DEFAULT: '#F5F2E8', // Warm off-white like aged parchment
+          secondary: '#E8E4D9', // Slightly darker warm tone
+          tertiary: '#D8D2C4', // Earthy border color
         },
-        // Text colors
+        // Text colors inspired by ancient ink and carved text
         text: {
-          DEFAULT: '#0f172a', // Near black for primary text
-          secondary: '#475569', // Gray for secondary text
+          DEFAULT: '#2C2824', // Deep warm brown for primary text
+          secondary: '#625D57', // Muted brown for secondary text
         },
-        // Brand/Interactive colors
+        // Brand/Interactive colors inspired by Greek art and architecture
         primary: {
-          DEFAULT: '#3b82f6', // Bright blue for primary actions
-          hover: '#2563eb', // Darker blue for hover states
+          DEFAULT: '#8B4513', // Terra cotta brown
+          hover: '#723A0F', // Darker terra cotta
         },
-        // Game feedback colors
+        // Game feedback colors with an antique feel
         success: {
-          DEFAULT: '#22c55e', // Green for correct guesses
-          light: '#dcfce7', // Light green background
+          DEFAULT: '#4A5D4C', // Olive green
+          light: '#E2E5E2', // Light sage background
         },
         warning: {
-          DEFAULT: '#eab308', // Yellow for partial matches
-          light: '#fef9c3', // Light yellow background
+          DEFAULT: '#A67C52', // Aged bronze
+          light: '#F2E8D9', // Light sand background
         },
         error: {
-          DEFAULT: '#ef4444', // Red for incorrect guesses
-          light: '#fee2e2', // Light red background
+          DEFAULT: '#8B4513', // Terra cotta red
+          light: '#F2E6E0', // Light clay background
         },
       },
     },
