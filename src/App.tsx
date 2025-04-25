@@ -6,6 +6,8 @@ import { SidePanelMobile } from './components/SidePanelMobile';
 import { GameResultPopup } from './components/GameResultPopup';
 import { generateShareText } from './utils/gameLogic';
 import { useState, useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { metadata } from './data/metadata';
 import './styles/game.css';
 
 const GameContent = () => {
@@ -49,6 +51,39 @@ const GameContent = () => {
 
   return (
     <div className="relative min-h-screen bg-bg text-text">
+      <Helmet>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="keywords" content={metadata.keywords.join(', ')} />
+
+        {/* Open Graph */}
+        <meta property="og:type" content={metadata.openGraph.type} />
+        <meta property="og:title" content={metadata.openGraph.title} />
+        <meta property="og:description" content={metadata.openGraph.description} />
+        <meta property="og:site_name" content={metadata.openGraph.siteName} />
+        <meta property="og:locale" content={metadata.openGraph.locale} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content={metadata.twitter.card} />
+        <meta name="twitter:title" content={metadata.twitter.title} />
+        <meta name="twitter:description" content={metadata.twitter.description} />
+
+        {/* Additional Meta Tags */}
+        {metadata.additionalMetaTags.map((tag, index) => (
+          <meta key={index} name={tag.name} content={tag.content} />
+        ))}
+
+        {/* Canonical */}
+        <link rel="canonical" href={metadata.alternates.canonical} />
+
+        {/* Icons */}
+        <link rel="shortcut icon" href={metadata.icons.shortcut} />
+        {metadata.icons.apple.map((icon, index) => (
+          <link key={index} rel="apple-touch-icon" sizes={icon.sizes} href={icon.url} />
+        ))}
+        <link rel="manifest" href={metadata.manifest} />
+      </Helmet>
+
       {currentPuzzle && (
         <>
           <SidePanelDesktop
