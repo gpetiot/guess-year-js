@@ -13,7 +13,15 @@ import './styles/game.css';
 const GameContent = () => {
   const { currentPuzzle, guesses, gameStatus, handleGuessSubmit, score } = useGame();
   const [isCluesPanelOpen, setIsCluesPanelOpen] = useState(true);
+  const [showResult, setShowResult] = useState(false);
   const guessInputRef = useRef<GuessInputHandle>(null);
+
+  // Show result popup when game ends
+  useEffect(() => {
+    if (gameStatus !== 'playing') {
+      setShowResult(true);
+    }
+  }, [gameStatus]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -79,12 +87,13 @@ const GameContent = () => {
                 disabled={gameStatus !== 'playing'}
               />
 
-              {gameStatus !== 'playing' && (
+              {gameStatus !== 'playing' && showResult && (
                 <GameResultPopup
                   gameStatus={gameStatus}
                   year={currentPuzzle.year}
                   score={score}
                   shareText={generateShareText(guesses, gameStatus === 'won')}
+                  onClose={() => setShowResult(false)}
                 />
               )}
             </div>
