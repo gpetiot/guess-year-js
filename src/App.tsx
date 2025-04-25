@@ -76,35 +76,6 @@ const GameContent = () => {
         {/* Canonical */}
         <link rel="canonical" href={metadata.alternates.canonical} />
 
-        {/* Icons */}
-        <link rel="shortcut icon" href={metadata.icons.shortcut} />
-        {metadata.icons.favicon.map((icon, index) => (
-          <link
-            key={`favicon-${index}`}
-            rel="icon"
-            type={icon.type}
-            sizes={icon.sizes}
-            href={icon.url}
-          />
-        ))}
-        {metadata.icons.apple.map((icon, index) => (
-          <link
-            key={`apple-${index}`}
-            rel="apple-touch-icon"
-            sizes={icon.sizes}
-            href={icon.url}
-            type={icon.type}
-          />
-        ))}
-        {metadata.icons.android.map((icon, index) => (
-          <link
-            key={`android-${index}`}
-            rel="icon"
-            type={icon.type}
-            sizes={icon.sizes}
-            href={icon.url}
-          />
-        ))}
         <link rel="manifest" href={metadata.manifest} />
       </Helmet>
 
