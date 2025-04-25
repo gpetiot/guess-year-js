@@ -52,17 +52,23 @@ export const SidePanelDesktop = ({ isOpen, onClose, clues }: SidePanelDesktopPro
         </div>
       </div>
 
-      <button
-        onClick={onClose}
-        className={`fixed left-0 top-1/2 z-20 hidden -translate-y-1/2 rounded-r-lg bg-bg-secondary p-2 text-text-secondary shadow-lg transition-colors hover:bg-bg-tertiary md:block ${
-          isOpen ? 'hidden' : 'block'
-        }`}
-        aria-label="Open panel"
-      >
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7" />
-        </svg>
-      </button>
+      {/* Toggle Button */}
+      {!isOpen && (
+        <button
+          onClick={onClose}
+          className="fixed bottom-4 left-4 z-30 hidden rounded-full bg-primary p-4 text-white shadow-lg transition-transform hover:scale-105 active:scale-95 md:block"
+          aria-label="Show clues"
+        >
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </button>
+      )}
     </>
   );
 };
