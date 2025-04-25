@@ -3,6 +3,8 @@ import { ClueList } from './components/ClueList';
 import { GuessInput, GuessInputHandle } from './components/GuessInput';
 import { GuessList } from './components/GuessList';
 import { ShareButtons } from './components/ShareButtons';
+import { SidePanelDesktop } from './components/SidePanelDesktop';
+import { SidePanelMobile } from './components/SidePanelMobile';
 import { generateShareText } from './utils/gameLogic';
 import { useState, useEffect, useRef } from 'react';
 import './styles/game.css';
@@ -40,52 +42,20 @@ const GameContent = () => {
 
   return (
     <div className="relative min-h-screen bg-bg text-text">
-      {/* Side Panel */}
-      <div
-        className={`fixed left-0 top-0 z-10 h-full transform bg-bg-secondary shadow-2xl transition-all duration-300 ease-in-out ${
-          isCluesPanelOpen ? 'w-[30%] translate-x-0' : 'w-0 -translate-x-full'
-        }`}
-      >
-        <div className="h-full overflow-hidden">
-          <div className="flex h-full flex-col p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-                Historical Clues
-              </h2>
-              <button
-                onClick={() => setIsCluesPanelOpen(false)}
-                className="rounded-lg p-2 text-text-secondary transition-colors hover:bg-bg-tertiary"
-                aria-label="Close panel"
-              >
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="text-text">
-              {currentPuzzle && <ClueList clues={currentPuzzle.clues} />}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Toggle Button (Outside Panel) */}
-      <button
-        onClick={() => setIsCluesPanelOpen(true)}
-        className={`fixed left-0 top-1/2 z-20 -translate-y-1/2 rounded-r-lg bg-bg-secondary p-2 text-text-secondary shadow-lg transition-colors hover:bg-bg-tertiary ${
-          isCluesPanelOpen ? 'hidden' : 'block'
-        }`}
-        aria-label="Open panel"
-      >
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7" />
-        </svg>
-      </button>
+      {currentPuzzle && (
+        <>
+          <SidePanelDesktop
+            isOpen={isCluesPanelOpen}
+            onClose={() => setIsCluesPanelOpen(!isCluesPanelOpen)}
+            clues={currentPuzzle.clues}
+          />
+          <SidePanelMobile
+            isOpen={isCluesPanelOpen}
+            onClose={() => setIsCluesPanelOpen(!isCluesPanelOpen)}
+            clues={currentPuzzle.clues}
+          />
+        </>
+      )}
 
       {/* Main Content */}
       <div className="flex min-h-screen flex-col items-center">
