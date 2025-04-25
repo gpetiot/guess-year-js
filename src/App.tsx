@@ -162,6 +162,12 @@ const GameContent = () => {
             </div>
           )}
         </main>
+
+        <footer className="w-full border-t border-bg-tertiary bg-bg py-4">
+          <div className="container mx-auto flex flex-col items-center gap-2 px-4 text-sm text-text-secondary">
+            <div className="text-center">© {new Date().getFullYear()} Dat Year</div>
+          </div>
+        </footer>
       </div>
     </div>
   );
