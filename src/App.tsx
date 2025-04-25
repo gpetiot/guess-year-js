@@ -5,12 +5,13 @@ import { GuessList } from './components/GuessList';
 import { ShareButtons } from './components/ShareButtons';
 import { SidePanelDesktop } from './components/SidePanelDesktop';
 import { SidePanelMobile } from './components/SidePanelMobile';
+import { GameResultPopup } from './components/GameResultPopup';
 import { generateShareText } from './utils/gameLogic';
 import { useState, useEffect, useRef } from 'react';
 import './styles/game.css';
 
 const GameContent = () => {
-  const { currentPuzzle, guesses, gameStatus, handleGuessSubmit, score, handleShare } = useGame();
+  const { currentPuzzle, guesses, gameStatus, handleGuessSubmit, score } = useGame();
   const [isCluesPanelOpen, setIsCluesPanelOpen] = useState(true);
   const guessInputRef = useRef<GuessInputHandle>(null);
 
@@ -79,22 +80,12 @@ const GameContent = () => {
               />
 
               {gameStatus !== 'playing' && (
-                <div className="w-full space-y-6 rounded-2xl bg-bg-secondary p-8 text-center shadow-xl">
-                  <p className="text-2xl font-bold text-text">
-                    {gameStatus === 'won' ? '🎉 Congratulations!' : '😔 Better luck next time!'}
-                  </p>
-                  <p className="text-lg text-text-secondary">The year was: {currentPuzzle.year}</p>
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="rounded-lg bg-bg-tertiary px-6 py-3">
-                      <p className="text-sm font-medium text-text-secondary">Score</p>
-                      <p className="text-3xl font-bold text-primary">{score}</p>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <p className="text-sm text-text-secondary">Share your result:</p>
-                    <ShareButtons shareText={generateShareText(guesses, gameStatus === 'won')} />
-                  </div>
-                </div>
+                <GameResultPopup
+                  gameStatus={gameStatus}
+                  year={currentPuzzle.year}
+                  score={score}
+                  shareText={generateShareText(guesses, gameStatus === 'won')}
+                />
               )}
             </div>
           )}
