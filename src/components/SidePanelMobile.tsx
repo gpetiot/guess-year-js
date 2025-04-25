@@ -1,4 +1,5 @@
 import { ClueList } from './ClueList';
+import { useSwipeable } from 'react-swipeable';
 
 interface SidePanelMobileProps {
   isOpen: boolean;
@@ -7,6 +8,14 @@ interface SidePanelMobileProps {
 }
 
 export const SidePanelMobile = ({ isOpen, onClose, clues }: SidePanelMobileProps) => {
+  const swipeHandlers = useSwipeable({
+    onSwipedDown: onClose,
+    delta: 50, // min distance(px) before a swipe starts
+    preventScrollOnSwipe: true,
+    trackTouch: true, // track touch input
+    trackMouse: false, // don't track mouse input
+  });
+
   return (
     <>
       {/* Backdrop */}
@@ -19,6 +28,7 @@ export const SidePanelMobile = ({ isOpen, onClose, clues }: SidePanelMobileProps
 
       {/* Panel */}
       <div
+        {...swipeHandlers}
         className={`fixed inset-x-0 bottom-0 z-50 transform bg-bg-secondary shadow-2xl transition-transform duration-300 ease-in-out md:hidden ${
           isOpen ? 'translate-y-0' : 'translate-y-full'
         }`}
