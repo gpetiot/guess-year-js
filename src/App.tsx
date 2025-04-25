@@ -1,8 +1,6 @@
 import { GameProvider, useGame } from './context/GameContext';
-import { ClueList } from './components/ClueList';
 import { GuessInput, GuessInputHandle } from './components/GuessInput';
 import { GuessList } from './components/GuessList';
-import { ShareButtons } from './components/ShareButtons';
 import { SidePanelDesktop } from './components/SidePanelDesktop';
 import { SidePanelMobile } from './components/SidePanelMobile';
 import { GameResultPopup } from './components/GameResultPopup';
