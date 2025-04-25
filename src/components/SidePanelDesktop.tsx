@@ -17,9 +17,7 @@ export const SidePanelDesktop = ({ isOpen, onClose, clues }: SidePanelDesktopPro
         <div className="h-full overflow-hidden">
           <div className="flex h-full flex-col p-6">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-                Historical Clues
-              </h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">Clues</h2>
               <button
                 onClick={onClose}
                 className="rounded-lg p-2 text-text-secondary transition-colors hover:bg-bg-tertiary"
@@ -35,6 +33,18 @@ export const SidePanelDesktop = ({ isOpen, onClose, clues }: SidePanelDesktopPro
                 </svg>
               </button>
             </div>
+
+            {/* Rules */}
+            <div className="mb-6 rounded-lg bg-bg-tertiary/50 p-4 text-sm text-text-secondary">
+              <h3 className="mb-2 font-semibold text-text">How to Play</h3>
+              <ul className="space-y-2">
+                <li>• Guess the year based on the clues below</li>
+                <li>• Green digits are correct and in the right position</li>
+                <li>• Yellow digits are correct but in the wrong position</li>
+                <li>• Red digits are incorrect</li>
+              </ul>
+            </div>
+
             <div className="text-text">
               <ClueList clues={clues} />
             </div>

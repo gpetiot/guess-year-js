@@ -31,9 +31,7 @@ export const SidePanelMobile = ({ isOpen, onClose, clues }: SidePanelMobileProps
 
           {/* Header */}
           <div className="flex items-center justify-between border-b border-bg-tertiary px-4 py-3">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-              Historical Clues
-            </h2>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">Clues</h2>
             <button
               onClick={onClose}
               className="rounded-lg p-2 text-text-secondary transition-colors hover:bg-bg-tertiary"
@@ -48,6 +46,19 @@ export const SidePanelMobile = ({ isOpen, onClose, clues }: SidePanelMobileProps
                 />
               </svg>
             </button>
+          </div>
+
+          {/* Rules */}
+          <div className="border-b border-bg-tertiary px-4 py-4">
+            <div className="rounded-lg bg-bg-tertiary/50 p-4 text-sm text-text-secondary">
+              <h3 className="mb-2 font-semibold text-text">How to Play</h3>
+              <ul className="space-y-2">
+                <li>• Guess the year based on the clues below</li>
+                <li>• Green digits are correct and in the right position</li>
+                <li>• Yellow digits are correct but in the wrong position</li>
+                <li>• Red digits are incorrect</li>
+              </ul>
+            </div>
           </div>
 
           {/* Content */}
