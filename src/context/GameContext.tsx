@@ -111,7 +111,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: 'Chronos Code Result',
+          title: 'Dat Year Result',
           text: shareText,
         });
       } else {

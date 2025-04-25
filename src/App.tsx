@@ -91,9 +91,7 @@ const GameContent = () => {
       <div className="flex min-h-screen flex-col items-center">
         <header className="w-full border-b dark:border-gray-800">
           <div className="container mx-auto flex items-center px-4 py-3">
-            <h1 className="flex-1 text-center text-3xl font-bold dark:text-white">
-              Guess the Year
-            </h1>
+            <h1 className="flex-1 text-center text-3xl font-bold dark:text-white">Dat Year</h1>
           </div>
         </header>
 

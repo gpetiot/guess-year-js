@@ -60,7 +60,7 @@ export const generateShareText = (guesses: GuessResult[], won: boolean): string 
     incorrect: '⬜',
   };
 
-  const header = `Chronos Code ${guesses.length}/${MAX_ATTEMPTS}${won ? ' ✨' : ' ❌'}\n\n`;
+  const header = `Dat Year ${guesses.length}/${MAX_ATTEMPTS}${won ? ' ✨' : ' ❌'}\n\n`;
   const grid = guesses.map((guess) => guess.feedback.map((f) => emojiMap[f]).join('')).join('\n');
 
   return header + grid;
