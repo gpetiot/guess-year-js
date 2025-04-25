@@ -83,7 +83,21 @@ export const timeCards: TimeCard[] = [
   },
 ];
 
+/**
+ * Gets the puzzle for today based on the current date.
+ * The same puzzle will be returned for the entire day (ignoring hours, minutes, seconds).
+ * The puzzle selection rotates through the available puzzles based on the days since epoch.
+ */
 export const getToday = (): Puzzle => {
-  const randomIndex = Math.floor(Math.random() * puzzles.length);
-  return puzzles[randomIndex];
+  // Get the start of today in the user's timezone
+  const now = new Date();
+  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  // Convert to days since epoch (January 1, 1970)
+  const daysSinceEpoch = Math.floor(startOfDay.getTime() / (1000 * 60 * 60 * 24));
+
+  // Use the days since epoch to get a consistent index for today
+  const todayIndex = daysSinceEpoch % puzzles.length;
+
+  return puzzles[todayIndex];
 };
