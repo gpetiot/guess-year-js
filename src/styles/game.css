@@ -1,64 +1,139 @@
 @keyframes flip {
   0% {
-    transform: rotateX(0);
+    transform: rotateX(0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: rotateX(180deg) scale(1.1);
+    opacity: 0.8;
   }
   100% {
-    transform: rotateX(360deg);
+    transform: rotateX(360deg) scale(1);
+    opacity: 1;
   }
 }
 
 @keyframes shake {
   0%,
   100% {
-    transform: translateX(0);
+    transform: translateX(0) rotate(0);
   }
-  25% {
-    transform: translateX(-5px);
+  20% {
+    transform: translateX(-4px) rotate(-2deg);
   }
-  75% {
-    transform: translateX(5px);
+  40% {
+    transform: translateX(4px) rotate(2deg);
+  }
+  60% {
+    transform: translateX(-4px) rotate(-1deg);
+  }
+  80% {
+    transform: translateX(4px) rotate(1deg);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 3px rgba(124, 92, 255, 0.4));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(124, 92, 255, 0.6));
+    transform: scale(1.02);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
   }
 }
 
 .digit-tile {
-  @apply m-1 flex h-16 w-16 items-center justify-center border-2 text-2xl font-bold;
+  @apply m-1 flex h-16 w-16 items-center justify-center rounded-xl border-2 text-2xl font-bold;
   perspective: 1000px;
   transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 4px 6px -1px rgba(124, 92, 255, 0.1),
+    0 2px 4px -1px rgba(124, 92, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.digit-tile:hover {
+  transform: translateY(-2px) scale(1.05);
 }
 
 .digit-tile.correct {
-  @apply border-green-500 bg-green-500 text-white;
-  animation: flip 0.5s ease-in-out;
+  @apply border-success bg-success text-white;
+  animation: flip 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 0 20px rgba(52, 211, 153, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .digit-tile.partial {
-  @apply border-yellow-500 bg-yellow-500 text-white;
-  animation: flip 0.5s ease-in-out;
+  @apply border-warning bg-warning text-white;
+  animation: flip 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 0 20px rgba(251, 191, 36, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .digit-tile.incorrect {
-  @apply border-gray-500 bg-gray-500 text-white;
-  animation: flip 0.5s ease-in-out;
+  @apply border-error bg-error text-white;
+  animation: flip 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 0 20px rgba(251, 113, 133, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .digit-tile.empty {
-  @apply border-gray-300;
+  @apply border-bg-tertiary bg-bg/80 text-text;
+  backdrop-filter: blur(12px);
 }
 
 .digit-tile.current {
-  @apply border-gray-500;
+  @apply border-primary bg-bg/90 text-text;
+  animation: glow 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 .shake {
-  animation: shake 0.5s ease-in-out;
+  animation: shake 0.6s cubic-bezier(0.36, 0, 0.66, 1);
 }
 
 .keyboard {
-  @apply mx-auto mt-4 grid w-full max-w-sm grid-cols-3 gap-2;
+  @apply mx-auto mt-8 grid w-full max-w-sm grid-cols-3 gap-4;
+  perspective: 1200px;
 }
 
 .key {
-  @apply rounded-md px-4 py-4 text-sm font-semibold transition-colors;
-  @apply bg-gray-200 hover:bg-gray-300 active:bg-gray-400;
-  @apply disabled:cursor-not-allowed disabled:opacity-50;
+  @apply rounded-2xl px-4 py-4 text-lg font-semibold transition-all duration-300;
+  @apply bg-bg-secondary/90 text-text backdrop-blur-sm;
+  @apply hover:-translate-y-1 hover:scale-105 hover:bg-primary hover:text-white;
+  @apply active:translate-y-0 active:scale-95 active:bg-primary-hover;
+  @apply disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:scale-100;
+  box-shadow:
+    0 4px 6px -1px rgba(124, 92, 255, 0.1),
+    0 2px 4px -1px rgba(124, 92, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Dark mode enhancements */
+.dark .key {
+  @apply bg-bg-secondary/80 text-text;
+  @apply hover:bg-primary/90 hover:text-white;
+  @apply active:bg-primary-hover/90 active:text-white;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 2px 4px -1px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }

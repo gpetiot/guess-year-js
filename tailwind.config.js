@@ -7,9 +7,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        correct: '#4ade80',
-        partial: '#facc15',
-        incorrect: '#6b7280',
+        'bg': {
+          DEFAULT: '#f8f9ff',      // Soft blue-tinted white
+          secondary: '#eef1ff',    // Light lavender
+          tertiary: '#e2e7ff',     // Deeper lavender
+        },
+        'text': {
+          DEFAULT: '#1a1b35',      // Deep navy
+          secondary: '#4a4b6a',    // Muted navy
+        },
+        'primary': {
+          DEFAULT: '#7c5cff',      // Vibrant purple
+          hover: '#6344eb',        // Deeper purple
+        },
+        'success': '#34d399',      // Mint green
+        'warning': '#fbbf24',      // Warm yellow
+        'error': '#fb7185',        // Coral red
       },
     },
   },

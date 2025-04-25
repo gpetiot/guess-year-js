@@ -39,22 +39,22 @@ const GameContent = () => {
   }, [gameStatus]);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-gray-900">
+    <div className="relative min-h-screen bg-bg text-text">
       {/* Side Panel */}
       <div
-        className={`fixed left-0 top-0 z-10 h-full transform bg-blue-600 shadow-lg transition-all duration-300 ease-in-out dark:bg-blue-700 ${
+        className={`fixed left-0 top-0 z-10 h-full transform bg-bg-secondary shadow-2xl transition-all duration-300 ease-in-out ${
           isCluesPanelOpen ? 'w-[30%] translate-x-0' : 'w-0 -translate-x-full'
         }`}
       >
         <div className="h-full overflow-hidden">
           <div className="flex h-full flex-col p-6">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-white">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
                 Historical Clues
               </h2>
               <button
                 onClick={() => setIsCluesPanelOpen(false)}
-                className="rounded p-2 text-white/80 hover:bg-blue-500 dark:hover:bg-blue-600"
+                className="rounded-lg p-2 text-text-secondary transition-colors hover:bg-bg-tertiary"
                 aria-label="Close panel"
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,7 +67,7 @@ const GameContent = () => {
                 </svg>
               </button>
             </div>
-            <div className="text-white">
+            <div className="text-text">
               {currentPuzzle && <ClueList clues={currentPuzzle.clues} />}
             </div>
           </div>
@@ -77,7 +77,7 @@ const GameContent = () => {
       {/* Toggle Button (Outside Panel) */}
       <button
         onClick={() => setIsCluesPanelOpen(true)}
-        className={`fixed left-0 top-1/2 z-20 -translate-y-1/2 rounded-r bg-blue-600 p-2 text-white/80 shadow-md hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-600 ${
+        className={`fixed left-0 top-1/2 z-20 -translate-y-1/2 rounded-r-lg bg-bg-secondary p-2 text-text-secondary shadow-lg transition-colors hover:bg-bg-tertiary ${
           isCluesPanelOpen ? 'hidden' : 'block'
         }`}
         aria-label="Open panel"
@@ -89,9 +89,11 @@ const GameContent = () => {
 
       {/* Main Content */}
       <div className="flex min-h-screen flex-col items-center">
-        <header className="w-full border-b dark:border-gray-800">
-          <div className="container mx-auto flex items-center px-4 py-3">
-            <h1 className="flex-1 text-center text-3xl font-bold dark:text-white">Dat Year</h1>
+        <header className="w-full border-b border-bg-tertiary bg-bg">
+          <div className="container mx-auto flex items-center px-4 py-4">
+            <h1 className="flex-1 text-center text-4xl font-bold tracking-tight">
+              <span className="text-primary">Dat</span> <span className="text-text">Year</span>
+            </h1>
           </div>
         </header>
 
@@ -107,14 +109,19 @@ const GameContent = () => {
               />
 
               {gameStatus !== 'playing' && (
-                <div className="w-full space-y-4 rounded-lg bg-gray-100 p-6 text-center dark:bg-gray-800">
-                  <p className="text-xl font-bold dark:text-white">
+                <div className="w-full space-y-6 rounded-2xl bg-bg-secondary p-8 text-center shadow-xl">
+                  <p className="text-2xl font-bold text-text">
                     {gameStatus === 'won' ? '🎉 Congratulations!' : '😔 Better luck next time!'}
                   </p>
-                  <p className="dark:text-white">The year was: {currentPuzzle.year}</p>
-                  <p className="text-lg font-semibold dark:text-white">Score: {score}</p>
+                  <p className="text-lg text-text-secondary">The year was: {currentPuzzle.year}</p>
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="rounded-lg bg-bg-tertiary px-6 py-3">
+                      <p className="text-sm font-medium text-text-secondary">Score</p>
+                      <p className="text-3xl font-bold text-primary">{score}</p>
+                    </div>
+                  </div>
                   <div className="space-y-4">
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Share your result:</p>
+                    <p className="text-sm text-text-secondary">Share your result:</p>
                     <ShareButtons shareText={generateShareText(guesses, gameStatus === 'won')} />
                   </div>
                 </div>
